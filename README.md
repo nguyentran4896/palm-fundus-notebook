@@ -168,6 +168,16 @@ Key features:
    - Validation loss monitoring
    - Segmentation quality assessment
 
+4. **Sample Training Results**:
+   The following plot shows the training and validation loss curves over 100 epochs:
+
+   ![Training Progress](training_progress.png)
+
+   The plot demonstrates:
+   - Convergence of both training and validation losses
+   - No significant overfitting (validation loss follows training loss)
+   - Stable learning process
+
 ### Hardware Acceleration
 The model supports multiple hardware backends:
 - CUDA for NVIDIA GPUs
