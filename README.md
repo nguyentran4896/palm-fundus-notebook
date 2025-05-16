@@ -217,9 +217,77 @@ The training progress is automatically plotted and saved, showing the convergenc
 
 ## License
 
-[Add your license information here]
+This project is licensed under the MIT License with a non-commercial clause. See the [LICENSE](LICENSE) file for details.
+
+### License Terms
+
+```
+MIT License with Non-Commercial Clause
+
+Copyright (c) 2025 [Nguyen Tran Dinh Khoi]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software for non-commercial purposes, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software for educational and research purposes, subject to the following conditions:
+
+1. The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+2. The Software may not be used for commercial purposes without explicit written
+   permission from the copyright holder.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+This license allows you to:
+- Use the code for learning and research
+- Modify and distribute the code for non-commercial purposes
+- Share your modifications with others
+- Use the code in academic settings
+
+While restricting:
+- Commercial use without explicit permission
+- Redistribution for commercial purposes
 
 ## Citation
 
-If you use this code in your research, please cite:
-[Add citation information here] 
+If you use this code in your research or learning, please cite:
+
+```
+@software{palm_segmentation_2025,
+  author = {Nguyen Tran Dinh Khoi},
+  title = {PALM Medical Image Segmentation},
+  year = {2025},
+  url = {https://github.com/yourusername/palm-train},
+  note = {A U-Net based deep learning model for segmenting medical images from the PALM dataset}
+}
+```
+
+For BibTeX format:
+```bibtex
+@software{palm_segmentation_2025,
+  author = {Nguyen Tran Dinh Khoi},
+  title = {PALM Medical Image Segmentation},
+  year = {2025},
+  url = {https://github.com/yourusername/palm-train},
+  note = {A U-Net based deep learning model for segmenting medical images from the PALM dataset}
+}
+```
+
+For APA format:
+```
+Nguyen Tran Dinh Khoi. (2025). PALM Medical Image Segmentation [Computer software]. https://github.com/yourusername/palm-train
+```
+
+For MLA format:
+```
+Nguyen Tran Dinh Khoi. "PALM Medical Image Segmentation." Computer software. 2025. https://github.com/yourusername/palm-train
+``` 
