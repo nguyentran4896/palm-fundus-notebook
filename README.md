@@ -29,38 +29,31 @@ PALM/
 
 ## Model Architecture
 
-The project uses a U-Net architecture, which is particularly effective for medical image segmentation tasks. Here's a diagram of the architecture:
+The project uses a U-Net architecture, which is particularly effective for medical image segmentation tasks. The architecture combines an encoder path for feature extraction and a decoder path for precise localization.
 
 ```mermaid
 graph TD
-    subgraph Encoder
-        A[Input Image] --> B[DoubleConv 64]
-        B --> C[MaxPool]
-        C --> D[DoubleConv 128]
-        D --> E[MaxPool]
-        E --> F[DoubleConv 256]
-        F --> G[MaxPool]
-        G --> H[DoubleConv 512]
-        H --> I[MaxPool]
-        I --> J[DoubleConv 1024]
-    end
-    
-    subgraph Decoder
-        J --> K[UpConv 512]
-        K --> L[Concat]
-        L --> M[DoubleConv 512]
-        M --> N[UpConv 256]
-        N --> O[Concat]
-        O --> P[DoubleConv 256]
-        P --> Q[UpConv 128]
-        Q --> R[Concat]
-        R --> S[DoubleConv 128]
-        S --> T[UpConv 64]
-        T --> U[Concat]
-        U --> V[DoubleConv 64]
-        V --> W[Output Mask]
+    subgraph U-Net Architecture
+        Input[Input Image<br/>3 channels] --> Encoder[Encoder Path<br/>Downsampling]
+        Encoder --> Bottleneck[Bottleneck<br/>1024 features]
+        Bottleneck --> Decoder[Decoder Path<br/>Upsampling]
+        Decoder --> Output[Output Mask<br/>3 channels]
+        
+        subgraph Key Components
+            DC[DoubleConv Block<br/>3x3 Conv + BN + ReLU]
+            MP[MaxPool 2x2]
+            TC[Transposed Conv<br/>2x2]
+            SC[Skip Connection]
+        end
     end
 ```
+
+Key Features:
+- **Encoder Path**: Progressive downsampling (64→128→256→512→1024 features)
+- **Decoder Path**: Progressive upsampling with skip connections
+- **DoubleConv Blocks**: Two 3x3 convolutions with batch normalization and ReLU
+- **Skip Connections**: Preserve fine-grained details
+- **Final Layer**: 1x1 convolution with sigmoid activation
 
 ## Training Methodology
 
