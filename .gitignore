@@ -1,0 +1,5 @@
+myenv/
+PALM/
+best_model.pth
+predictions/
+self-test/
