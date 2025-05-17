@@ -28,7 +28,7 @@ class DoubleConv(nn.Module):
         return self.double_conv(x)
 
 class UNet(nn.Module):
-    def __init__(self, n_channels=3, n_classes=3):
+    def __init__(self, n_channels=3, n_classes=2):
         super(UNet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
@@ -229,13 +229,11 @@ def main():
     train_image_dir = "PALM/Training/Images"
     train_mask_dirs = [
         "PALM/Training/Lesion Masks/Atrophy",
-        "PALM/Training/Lesion Masks/Detachment",
         "PALM/Training/Disc Masks"
     ]
     val_image_dir = "PALM/Validation/Images"
     val_mask_dirs = [
         "PALM/Validation/Lesion Masks/Atrophy",
-        "PALM/Validation/Lesion Masks/Detachment",
         "PALM/Validation/Disc Masks"
     ]
 
@@ -262,7 +260,7 @@ def main():
     val_loader = DataLoader(val_dataset, batch_size=16, shuffle=False, num_workers=4)
 
     # Initialize model, loss function, and optimizer
-    model = UNet(n_channels=3, n_classes=3).to(device)  # 3 classes for Atrophy, Detachment, Disc
+    model = UNet(n_channels=3, n_classes=2).to(device)  # 2 classes for Atrophy and Disc
     criterion = WeightedBCELoss(missing_weight=0.0).to(device)
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
