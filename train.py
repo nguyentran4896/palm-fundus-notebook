@@ -28,7 +28,7 @@ class DoubleConv(nn.Module):
         return self.double_conv(x)
 
 class UNet(nn.Module):
-    def __init__(self, n_channels=3, n_classes=3):
+    def __init__(self, n_channels=3, n_classes=2):
         super(UNet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
@@ -128,20 +128,20 @@ class PALMDataset(Dataset):
         
         # Load and resize image
         image = Image.open(img_path).convert("RGB")
-        image = image.resize((512, 512), Image.Resampling.BILINEAR)
+        image = image.resize((256, 256), Image.Resampling.BILINEAR)
         image = np.array(image)
         
         # Initialize masks array with zeros
-        masks = np.zeros((len(self.mask_dirs), 512, 512), dtype=np.float32)
+        masks = np.zeros((len(self.mask_dirs), 256, 256), dtype=np.float32)
         
         # Load and process available masks
         for i, (mask_name, exists) in enumerate(zip(mask_names, mask_exists)):
             if exists:
                 mask_path = os.path.join(self.mask_dirs[i], mask_name)
                 mask = Image.open(mask_path).convert("L")
-                mask = mask.resize((512, 512), Image.Resampling.NEAREST)
+                mask = mask.resize((256, 256), Image.Resampling.NEAREST)
                 mask = np.array(mask)
-                masks[i] = (mask == 0).astype(np.float32)
+                masks[i] = (mask > 0).astype(np.float32)
 
         if self.transform:
             augmented = self.transform(image=image, masks=masks)
@@ -229,13 +229,11 @@ def main():
     train_image_dir = "PALM/Training/Images"
     train_mask_dirs = [
         "PALM/Training/Lesion Masks/Atrophy",
-        "PALM/Training/Lesion Masks/Detachment",
         "PALM/Training/Disc Masks"
     ]
     val_image_dir = "PALM/Validation/Images"
     val_mask_dirs = [
         "PALM/Validation/Lesion Masks/Atrophy",
-        "PALM/Validation/Lesion Masks/Detachment",
         "PALM/Validation/Disc Masks"
     ]
 
@@ -258,11 +256,11 @@ def main():
     val_dataset = PALMDataset(val_image_dir, val_mask_dirs, transform=val_transform)
 
     # Create data loaders
-    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4)
-    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False, num_workers=4)
+    train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True, num_workers=4)
+    val_loader = DataLoader(val_dataset, batch_size=16, shuffle=False, num_workers=4)
 
     # Initialize model, loss function, and optimizer
-    model = UNet(n_channels=3, n_classes=3).to(device)  # 3 classes for Atrophy, Detachment, and Disc
+    model = UNet(n_channels=3, n_classes=2).to(device)  # 2 classes for Atrophy and Disc
     criterion = WeightedBCELoss(missing_weight=0.0).to(device)
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
 
